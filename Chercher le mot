@@ -1,0 +1,70 @@
+<!---
+NTYAMeRose/NTYAMeRose is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+You can click the Preview link to take a look at your changes.
+---using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+
+class MotChercher
+{
+    static HashSet<string>
+    ChargerDictionnaire()
+    {
+        //Charge un dictionnaire de mots en français à partir d'un fichier texte
+    vardictionnaire = new HashSet<string>();
+    string[]lignes=File.ReadAllLines("dictionnary.txt");
+    foreach (stringmotinlignes)
+        {
+ dictionnaire.Add(mot.ToLower());
+ }
+ returndictionnaire;
+ }
+ static HashSet<string>
+ TrouverMots(stringlettres,HashSet<string>dictionnaire)
+ {
+     //Trouve tous les mots possibles à partir d'un ensemble de lettres
+     varmotsTrouves = newHashSet<string>();
+     for(inti=1;i<=lettres.Length;i++)
+        {
+  var permutations = GetPermutations(lettres,i);
+  foreach(varpermutationinpermutations)
+       {
+  string mot = new string(permutation.ToArray());
+  if(dictionnaire.Contains(mot))
+    {
+    motsTrouves.Add(mot);
+    }
+   }
+  }
+  return motsTrouves;
+  }
+  static IEnumerable<IEnumerable<T>> GetPermutations<T>(IEnumerable<T>list,int length)
+  {
+      //Génèretouteslespermutationsd'unelistedelongueurdonnée
+      if(length==1)return
+        list.Select(t=>new T[]{t});
+      return GetPermutations(list,length-1)
+      .SelectMany(t=> list.Where(e=>!t.Contains(e)),
+                  (t1,t2) =>t1.Concat(newT[]{t2}));
+  }
+    static void Main(string[]args)
+    {
+     Console.Write("Entrez les lettres disponibles:");
+     string lettres = Console.ReadLine().ToLower();
+     var dictionnaire = ChargerDictionnaire();
+     var mots = TrouverMots(lettres,dictionnaire);
+    if(mots.Any())
+    {
+        Console.WriteLine("Mots trouvés:");
+    foreach(string mot in mots)
+     {
+        Console.WriteLine(mot);
+     }
+    }
+    else
+    {
+        Console.WriteLine("Aucun mot trouvé.");
+     }
+    }
+   }
